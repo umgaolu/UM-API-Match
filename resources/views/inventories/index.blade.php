@@ -17,14 +17,14 @@
 @endsection
 
 @section('data')
-<h2>Section title</h2>
+<h2>Data</h2>
 <div class="table-responsive">
 <table class="table table-striped table-sm">
   <thead>
     <tr>
 		@foreach($fields as $field)
 		      <th>{{ucwords($field)}}</th>
-		@endforeach 
+		@endforeach
     </tr>
   </thead>
   <tbody>
