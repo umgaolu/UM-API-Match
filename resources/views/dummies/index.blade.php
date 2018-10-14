@@ -12,15 +12,15 @@
     </tr>
   </thead>
   <tbody>
-    @foreach($collections as $c)
-<!--       <tr>
+<!--     @foreach($collections as $c)
+      <tr>
         <td>{{$c->}}</td>
         <td>{{$c->}}</td>
         <td>{{$c->}}</td>
         <td>{{json_encode($c->)}}</td>
         <td>{{json_encode($c->)}}</td>
-      </tr> -->
-  @endforeach
+      </tr>
+  @endforeach -->
   </tbody>
 </table>
 </div>

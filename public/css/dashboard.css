@@ -9,5 +9,11 @@ body {
 }
 
 [role="main"] {
-    padding-top: 48px; /* Space for fixed navbar */
+    padding-top: 100px; /* Space for fixed navbar */
 }
+
+/*canvas {
+  background-color: blue;
+  width: 100%;
+  height: auto;
+}*/
