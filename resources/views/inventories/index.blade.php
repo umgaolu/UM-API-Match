@@ -22,26 +22,26 @@
 <table class="table table-striped table-sm">
   <thead>
     <tr>
-		@foreach($fields as $field)
-		      <th>{{ucwords($field)}}</th>
-		@endforeach
+		{{--@foreach($fields as $field)--}}
+		      <th>{{--ucwords($field)--}}</th>
+		{{--@endforeach--}}
     </tr>
   </thead>
   <tbody>
-  	@foreach($inventories as $inventory)
+  	{{--@foreach($inventories as $inventory)--}}
 	    <tr>
-	      <td>{{$inventory->item}}</td>
-	      <td>{{$inventory->qty}}</td>
-	      <td>{{$inventory->status}}</td>
-	      <td>{{json_encode($inventory->size)}}</td>
-	      <td>{{json_encode($inventory->tags)}}</td>
+	      <td>{{--$inventory->item--}}</td>
+	      <td>{{--$inventory->qty--}}</td>
+	      <td>{{--$inventory->status--}}</td>
+	      <td>{{--json_encode($inventory->size)--}}</td>
+	      <td>{{--json_encode($inventory->tags)--}}</td>
 	    </tr>
-	@endforeach
+	{{--@endforeach--}}
   </tbody>
 </table>
 </div>
-@endsection
- -->
+@endsection -->
+
 @section('graphs')
 <!-- <div id="chart" style="width: 100%; min-height: 800px"></div> -->
 <div class="col-md-6 col-sm-12"><div class="card"><div class="card-body"><div style="width: 100%; min-height: 380px" id="chart1"></div></div></div></div>

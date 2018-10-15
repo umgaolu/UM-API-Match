@@ -21,12 +21,18 @@
     <script src="/js/echarts.min.js"></script>
     <script src="/js/dark.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      if({{!empty($collections)}}){
+        var ori_data=@json($collections);
+        // console.log(ori_data);
+      }
+    </script>
     @include('layouts.nav')
     <div class="container-fluid" role="main">
         <div class="row">
-      			<!-- @yield('controls') -->
-      			@yield('graphs')
-      			<!-- @yield('data') -->
+            <!-- @yield('controls') -->
+            @yield('graphs')
+            <!-- @yield('data') -->
         </div>
     </div>
 

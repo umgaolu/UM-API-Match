@@ -1,3 +1,30 @@
+if(ori_data){
+    // console.log(ori_data);
+    var consumptionLocation=[];
+    var mealType=[];
+    var rcMember=[];
+    ori_data.forEach(function(item){
+        // console.log(item);
+        consumptionLocation.push(item['consumptionLocation']);
+        mealType.push(item['mealType']);
+        rcMember.push(item['reMember']);
+    });
+    var uniqueLocation=Array.from(new Set(consumptionLocation));
+    console.log(consumptionLocation);
+    // console.log(mealType);
+    // var counts={};
+    // for (var i=0;i<consumptionLocation.length;i++){
+    //   var location=consumptionLocation[i];
+    //   counts[location]=counts[location]?counts[location]+1:1;
+    // }
+    // var pieData=[];
+    // for(var i=0;i<uniqueLocation.length;i++){
+    //     var temp={};
+    //     temp['value']=counts[uniqueLocation[i]];
+    //     temp['name']=uniqueLocation[i];
+    //     pieData.push(temp);
+    // }
+}
 lineOption = {
     title: {
         text: '折线图堆叠'
@@ -88,7 +115,8 @@ pieOption = {
     legend: {
         orient: 'vertical',
         left: 'left',
-        data: ['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
+        // data: ['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
+        data: uniqueLocation
     },
     series : [
         {
@@ -96,6 +124,7 @@ pieOption = {
             type: 'pie',
             radius : '55%',
             center: ['50%', '60%'],
+            // data: pieData,
             data:[
                 {value:335, name:'直接访问'},
                 {value:310, name:'邮件营销'},
