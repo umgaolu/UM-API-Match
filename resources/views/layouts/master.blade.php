@@ -22,9 +22,15 @@
     <script src="/js/dark.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script type="text/javascript">
-      if({{!empty($collections)}}){
-        var ori_data=@json($collections);
-        // console.log(ori_data);
+      if({{!empty($pieData)&&(!empty($locations))&&(!empty($bubbleData))&&(!empty($rcs))}}){
+        var pieData=@json($pieData);
+        var locations=@json($locations);
+        var bubbleData=@json($bubbleData);
+        var rcs=@json($rcs);
+        console.log(pieData);
+        console.log(locations);
+        console.log(bubbleData);
+        console.log(rcs);
       }
     </script>
     @include('layouts.nav')

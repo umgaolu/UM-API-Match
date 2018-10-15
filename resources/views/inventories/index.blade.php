@@ -51,24 +51,24 @@
 <script src="/js/chart.data.js"></script>
 <script>
   var dom1 = document.getElementById("chart1");
-  var chart1 = echarts.init(dom1, 'vintage');
+  var chart1 = echarts.init(dom1, 'dark');
   if (lineOption && typeof lineOption === "object") {
       chart1.setOption(lineOption, true);
   }
   var dom2 = document.getElementById("chart2");
-  var chart2 = echarts.init(dom2, 'vintage');
+  var chart2 = echarts.init(dom2, 'dark');
   if (barOption && typeof barOption === "object") {
       chart2.setOption(barOption, true);
   }
   var dom3 = document.getElementById("chart3");
-  var chart3 = echarts.init(dom3, 'vintage');
+  var chart3 = echarts.init(dom3, 'dark');
   if (pieOption && typeof pieOption === "object") {
       chart3.setOption(pieOption, true);
   }
   var dom4 = document.getElementById("chart4");
-  var chart4 = echarts.init(dom4, 'vintage');
-  if (radarOption && typeof radarOption === "object") {
-      chart4.setOption(radarOption, true);
+  var chart4 = echarts.init(dom4, 'dark');
+  if (bubbleOption && typeof bubbleOption === "object") {
+      chart4.setOption(bubbleOption, true);
   }
   $(window).on('resize', function(){
       if(chart1 != null && chart1 != undefined){

@@ -1,30 +1,3 @@
-if(ori_data){
-    // console.log(ori_data);
-    var consumptionLocation=[];
-    var mealType=[];
-    var rcMember=[];
-    ori_data.forEach(function(item){
-        // console.log(item);
-        consumptionLocation.push(item['consumptionLocation']);
-        mealType.push(item['mealType']);
-        rcMember.push(item['reMember']);
-    });
-    var uniqueLocation=Array.from(new Set(consumptionLocation));
-    console.log(consumptionLocation);
-    // console.log(mealType);
-    // var counts={};
-    // for (var i=0;i<consumptionLocation.length;i++){
-    //   var location=consumptionLocation[i];
-    //   counts[location]=counts[location]?counts[location]+1:1;
-    // }
-    // var pieData=[];
-    // for(var i=0;i<uniqueLocation.length;i++){
-    //     var temp={};
-    //     temp['value']=counts[uniqueLocation[i]];
-    //     temp['name']=uniqueLocation[i];
-    //     pieData.push(temp);
-    // }
-}
 lineOption = {
     title: {
         text: '折线图堆叠'
@@ -98,14 +71,27 @@ barOption = {
     },
     series: [{
         data: [120, 200, 150, 80, 70, 110, 130],
-        type: 'bar'
+        type: 'bar',
+        itemStyle: {
+            normal: {
+                color: function(params) {
+                    var colorList = ['#2eddc1', '#FCCE10', '#E87C25', '#27727B','#9efdc6', '#f27C99', '#a27C99', '#27727B' ];
+                    return colorList[params.dataIndex]
+                },
+                label: {
+                    show: true,
+                    position: 'top',
+                    formatter: '{b}\n{c}'
+                }
+            }
+        },
     }]
 };
 
 pieOption = {
     title : {
-        text: '某站点用户访问来源',
-        subtext: '纯属虚构',
+        text: 'Where Meal is Consumed?',
+        // subtext: '纯属虚构',
         x:'center'
     },
     tooltip : {
@@ -116,22 +102,22 @@ pieOption = {
         orient: 'vertical',
         left: 'left',
         // data: ['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
-        data: uniqueLocation
+        data: locations
     },
     series : [
         {
-            name: '访问来源',
+            name: 'Consumtion Location',
             type: 'pie',
             radius : '55%',
             center: ['50%', '60%'],
-            // data: pieData,
-            data:[
-                {value:335, name:'直接访问'},
-                {value:310, name:'邮件营销'},
-                {value:234, name:'联盟广告'},
-                {value:135, name:'视频广告'},
-                {value:1548, name:'搜索引擎'}
-            ],
+            data: pieData,
+            // data:[
+            //     {value:335, name:'直接访问'},
+            //     {value:310, name:'邮件营销'},
+            //     {value:234, name:'联盟广告'},
+            //     {value:135, name:'视频广告'},
+            //     {value:1548, name:'搜索引擎'}
+            // ],
             itemStyle: {
                 emphasis: {
                     shadowBlur: 10,
@@ -143,46 +129,49 @@ pieOption = {
     ]
 };
 
-radarOption = {
+bubbleOption = {
     title: {
-        text: '基础雷达图'
+        text: 'RC Member v.s. RC Canteen',
+        x:'center'
     },
-    tooltip: {},
-    legend: {
-        data: ['预算分配（Allocated Budget）', '实际开销（Actual Spending）']
+    xAxis: {
+        type: 'category',
+        data: rcs,
+        name: 'RC Member'
     },
-    radar: {
-        // shape: 'circle',
-        name: {
-            textStyle: {
-                color: '#fff',
-                backgroundColor: '#999',
-                borderRadius: 3,
-                padding: [3, 5]
-           }
-        },
-        indicator: [
-           { name: '销售（sales）', max: 6500},
-           { name: '管理（Administration）', max: 16000},
-           { name: '信息技术（Information Techology）', max: 30000},
-           { name: '客服（Customer Support）', max: 38000},
-           { name: '研发（Development）', max: 52000},
-           { name: '市场（Marketing）', max: 25000}
-        ]
+    yAxis: {
+        type: 'category',
+        data: locations,
+        name: 'RC Canteen'
     },
     series: [{
-        name: '预算 vs 开销（Budget vs spending）',
-        type: 'radar',
-        // areaStyle: {normal: {}},
-        data : [
-            {
-                value : [4300, 10000, 28000, 35000, 50000, 19000],
-                name : '预算分配（Allocated Budget）'
-            },
-             {
-                value : [5000, 14000, 28000, 31000, 42000, 21000],
-                name : '实际开销（Actual Spending）'
+        symbolSize: function (data) {
+            return data[2];
+        },
+        label: {
+            emphasis: {
+                show: true,
+                formatter: function (param) {
+                    return (rcs[param.data[0]]+'@'+locations[param.data[1]]);
+                },
+                position: 'top'
             }
-        ]
+        },
+        itemStyle: {
+            normal: {
+                shadowBlur: 10,
+                shadowColor: 'rgba(120, 36, 50, 0.5)',
+                shadowOffsetY: 5,
+                color: new echarts.graphic.RadialGradient(0.4, 0.3, 1, [{
+                    offset: 0,
+                    color: 'rgb(251, 118, 123)'
+                }, {
+                    offset: 1,
+                    color: 'rgb(204, 46, 72)'
+                }])
+            }
+        },
+        data: bubbleData,
+        type: 'scatter'
     }]
 };
