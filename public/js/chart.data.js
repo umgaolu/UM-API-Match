@@ -171,7 +171,7 @@ bubbleOption = {
                 color: function(params) {
                     // var colorList = ['#2eddc1', '#FCCE10', '#E87C25', '#27727B','#9efdc6', '#f27C99', '#a27C99', '#27727B' ];
                     // return colorList[params.dataIndex%colorList.length]
-                    return colorPalette[params.dataIndex%colorPalette.length]
+                    return colorPalette[colorPalette.length - 1 - params.dataIndex%colorPalette.length]
                 },
             }
         },
