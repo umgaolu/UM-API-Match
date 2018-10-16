@@ -14,4 +14,5 @@
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-Route::get('/','InventoryController@index');
+// Route::get('/','InventoryController@index');
+Route::get('/','DummyController@index');
