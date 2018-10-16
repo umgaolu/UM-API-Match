@@ -11,7 +11,7 @@ class DummyController extends Controller
     public function index()
     {
         //@todo use AJAX to split request for different charts in different method
-        $collections = Dummy::all('consumptionLocation','mealType','rcMember')->random(30)->toArray();
+        $collections = Dummy::all('consumptionLocation','mealType','rcMember')->toArray();
         // $temp = (array)json_decode(json_encode($collections));
         $consumptionLocation=array_column($collections, 'consumptionLocation');
         // $mealType=array_column($collections, 'mealType');

@@ -1,3 +1,4 @@
+var colorPalette = ['#dd6b66','#759aa0','#e69d87','#8dc1a9','#ea7e53','#eedd78','#73a373','#73b9bc','#7289ab', '#91ca8c','#f49f42'];
 lineOption = {
     title: {
         text: '折线图堆叠'
@@ -75,8 +76,8 @@ barOption = {
         itemStyle: {
             normal: {
                 color: function(params) {
-                    var colorList = ['#2eddc1', '#FCCE10', '#E87C25', '#27727B','#9efdc6', '#f27C99', '#a27C99', '#27727B' ];
-                    return colorList[params.dataIndex]
+                    // var colorList = ['#2eddc1', '#FCCE10', '#E87C25', '#27727B','#9efdc6', '#f27C99', '#a27C99', '#27727B' ];
+                    return colorPalette[params.dataIndex]
                 },
                 label: {
                     show: true,
@@ -137,7 +138,12 @@ bubbleOption = {
     xAxis: {
         type: 'category',
         data: rcs,
-        name: 'RC Member'
+        name: 'RC Member',
+        nameLocation: 'middle',
+        nameTextStyle: {
+            align: 'center',
+            padding: 10
+        }
     },
     yAxis: {
         type: 'category',
@@ -152,7 +158,7 @@ bubbleOption = {
             emphasis: {
                 show: true,
                 formatter: function (param) {
-                    return (rcs[param.data[0]]+'@'+locations[param.data[1]]);
+                    return (rcs[param.data[0]]+'@'+locations[param.data[1]]+': '+param.data[2]);
                 },
                 position: 'top'
             }
@@ -163,8 +169,9 @@ bubbleOption = {
                 shadowColor: 'rgba(120, 36, 50, 0.5)',
                 shadowOffsetY: 5,
                 color: function(params) {
-                    var colorList = ['#2eddc1', '#FCCE10', '#E87C25', '#27727B','#9efdc6', '#f27C99', '#a27C99', '#27727B' ];
-                    return colorList[params.dataIndex%colorList.length]
+                    // var colorList = ['#2eddc1', '#FCCE10', '#E87C25', '#27727B','#9efdc6', '#f27C99', '#a27C99', '#27727B' ];
+                    // return colorList[params.dataIndex%colorList.length]
+                    return colorPalette[params.dataIndex%colorPalette.length]
                 },
             }
         },
