@@ -146,7 +146,7 @@ bubbleOption = {
     },
     series: [{
         symbolSize: function (data) {
-            return data[2];
+            return Math.sqrt(data[2])*10;
         },
         label: {
             emphasis: {
@@ -162,13 +162,10 @@ bubbleOption = {
                 shadowBlur: 10,
                 shadowColor: 'rgba(120, 36, 50, 0.5)',
                 shadowOffsetY: 5,
-                color: new echarts.graphic.RadialGradient(0.4, 0.3, 1, [{
-                    offset: 0,
-                    color: 'rgb(251, 118, 123)'
-                }, {
-                    offset: 1,
-                    color: 'rgb(204, 46, 72)'
-                }])
+                color: function(params) {
+                    var colorList = ['#2eddc1', '#FCCE10', '#E87C25', '#27727B','#9efdc6', '#f27C99', '#a27C99', '#27727B' ];
+                    return colorList[params.dataIndex%colorList.length]
+                },
             }
         },
         data: bubbleData,
