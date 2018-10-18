@@ -15,4 +15,6 @@
 //     return view('welcome');
 // });
 // Route::get('/','InventoryController@index');
-Route::get('/','DummyController@index');
+// Route::get('/','DummyController@index');
+Route::get('/','ChartController@index');
+Route::get('/charts','ChartController@all');
