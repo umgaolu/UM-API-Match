@@ -16,5 +16,6 @@
 // });
 // Route::get('/','InventoryController@index');
 // Route::get('/','DummyController@index');
-Route::get('/','ChartController@index');
+// Route::get('/','ChartController@index');
+Route::get('/','ApiController@index');
 Route::get('/charts','ChartController@all');
