@@ -7,21 +7,23 @@ function setSeriesBase(args){
         type:'bar',
         itemStyle:{
             normal:{
-                color:function(params){return colorPalette[params.dataIndex]},
-                label:{show:true,position: 'top',formatter: '{b}\n{c}'}
+                // color:function(params){return colorPalette[params.dataIndex]},
+                label:{show:true,position:'top',formatter:'{a}\n{c}'}
             }
-        },
+        }
+        //, name:''
     };
     var pieSeriesBase={
         type:'pie',
         radius:'55%',
         center:['50%','60%'],
         itemStyle:{
-            emphasis:{shadowBlur:10,shadowOffsetX:0,shadowColor: 'rgba(0, 0, 0, 0.5)'}
+            emphasis:{shadowBlur:10,shadowOffsetX:0,shadowColor:'rgba(0, 0, 0, 0.5)'}
         }
     }
     var bubbleSerieseBase={
-        symbolSize: function(data){return Math.sqrt(data[2])*10;},
+        // symbolOffset:[],
+        symbolSize:function(data){return Math.sqrt(data[2])*2;},
         label:{
             emphasis:{
                 show:true,
@@ -34,7 +36,7 @@ function setSeriesBase(args){
                 shadowBlur:10,
                 shadowColor:'rgba(120, 36, 50, 0.5)',
                 shadowOffsetY:5,
-                color: function(params){return colorPalette[colorPalette.length-1-params.dataIndex%colorPalette.length]},
+                color:function(params){return colorPalette[colorPalette.length-1-params.dataIndex%colorPalette.length]},
             }
         },
         type:'scatter'
@@ -57,6 +59,7 @@ function setSeriesBase(args){
     if('seriesName' in args) clone['name']=args.seriesName;
     if('stack' in args) clone['stack']=args.stack;
     if('formatterFunction' in args) clone['label']['emphasis']['formatter']=args.formatterFunction;
+    if('symbolOffset' in args) clone['symbolOffset']=args.symbolOffset;
     return clone;
 }
 function setBaseOption(args){
@@ -69,15 +72,16 @@ function setBaseOption(args){
         legend:{data:[]},
         xAxis:{type:'category',boundaryGap:false
         // ,data:[]
-    },
+        },
         yAxis:{type:'value'}
         // ,series:[]
     };
     var barBaseOption={
         xAxis:{type:'category'
         // ,data:[]
-    },
-        yAxis:{type:'value'}
+        },
+        yAxis:{type:'value'},
+        legend:{data:[]},
         // ,series:[]
     };
     var pieBaseOption={
@@ -85,11 +89,12 @@ function setBaseOption(args){
         tooltip:{trigger:'item',formatter:"{a} <br/>{b} : {c} ({d}%)"},
         legend:{orient:'vertical',left:'left'
         // ,data:[]
-    }
+        }
         // ,series:[]
     };
     var bubbleBaseOption={
         title:{x:'center',text:''},
+        legend:{right:10,data:[]},
         xAxis:{
             type:'category',
             nameLocation:'middle',
@@ -124,15 +129,15 @@ function setBaseOption(args){
     if('series' in args) clone['series']=args.series;
     return clone;
 }
-var lineLegendData=['邮件营销','联盟广告','视频广告','直接访问','搜索引擎'];
-var lineXAxisData=['周一','周二','周三','周四','周五','周六','周日'];
-var lineData=[[120, 132, 101, 134, 90, 230, 210],[220, 182, 191, 234, 290, 330, 310],[150, 232, 201, 154, 190, 330, 410],[320, 332, 301, 334, 390, 330, 320],[820, 932, 901, 934, 1290, 1330, 1320]]
-var lineSeries=[];
-for(i in lineData){
-    lineSeries.push(setSeriesBase({chartType:'line',seriesData:lineData[i],stack:'总量',seriesName:lineLegendData[i]}));
-}
-var lineOption=setBaseOption({chartType:'line',titleText:'折线图堆叠',legendData:lineLegendData,xAxisData:lineXAxisData,series:lineSeries});
+// var lineLegendData=['邮件营销','联盟广告','视频广告','直接访问','搜索引擎'];
+// var lineXAxisData=['周一','周二','周三','周四','周五','周六','周日'];
+// var lineData=[[120, 132, 101, 134, 90, 230, 210],[220, 182, 191, 234, 290, 330, 310],[150, 232, 201, 154, 190, 330, 410],[320, 332, 301, 334, 390, 330, 320],[820, 932, 901, 934, 1290, 1330, 1320]]
+// var lineSeries=[];
+// for(i in lineData){
+//     lineSeries.push(setSeriesBase({chartType:'line',seriesData:lineData[i],stack:'总量',seriesName:lineLegendData[i]}));
+// }
+// var lineOption=setBaseOption({chartType:'line',titleText:'折线图堆叠',legendData:lineLegendData,xAxisData:lineXAxisData,series:lineSeries});
 
-var barXAxisData=['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-var barSeries=[setSeriesBase({chartType:'bar',seriesData:[120, 200, 150, 80, 70, 110, 130]})];
-var barOption=setBaseOption({chartType:'bar',xAxisData:barXAxisData,series:barSeries});
+// var barXAxisData=['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+// var barSeries=[setSeriesBase({chartType:'bar',seriesData:[120, 200, 150, 80, 70, 110, 130]})];
+// var barOption=setBaseOption({chartType:'bar',xAxisData:barXAxisData,series:barSeries});

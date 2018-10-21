@@ -15,7 +15,7 @@ class ApiController extends Controller
   {
     $apiConnector=new ApiConnector();
     // $ops='?meter_code=6A05_7&recordDatetime=2018-10-0[1-7]{1}T[0][8]:[0]{2}:[0]{2}+\d{2}:[0]{2}&count';
-    $ops='?consumption_location=CKLC&consume_date_from=2018-10-08&consume_date_to=2018-10-14&count';
+    $ops='?consumption_location=CKLC&consume_date_from=2018-10-08&consume_date_to=2018-10-09&count';
     $data=$apiConnector->fetchData($this->mealConsumption.$ops);
     if(!is_null($data)){
       dd($data);

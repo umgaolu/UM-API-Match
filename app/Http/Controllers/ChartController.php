@@ -16,6 +16,7 @@ class ChartController extends Controller
     {
         if ($request->isMethod('get')){
             $collections = Dummy::all('consumptionLocation','mealType','rcMember')->toArray();
+            // return $collections;
             // $temp = (array)json_decode(json_encode($collections));
             $consumptionLocation=array_column($collections, 'consumptionLocation');
             // $mealType=array_column($collections, 'mealType');
