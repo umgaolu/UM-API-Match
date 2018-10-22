@@ -38,7 +38,6 @@
       dataType: 'json',
       type: 'get',
       success: function(data){
-        $('#loadingModal').modal('hide');
         var days=data.days;
         var locations=data.locations;
         var rcs=data.rcs;
