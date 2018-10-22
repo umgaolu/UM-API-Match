@@ -16,9 +16,9 @@
 // });
 // Route::get('/','InventoryController@index');
 // Route::get('/','DummyController@index');
-Route::get('/c','ChartController@index');
+Route::get('/','ChartController@index');
 // Route::get('/','ApiController@index');
 // Route::get('/','MealController@collectData');
-Route::get('/','MealController@exportData');
-Route::get('/meals','MealController@collectData');
+// Route::get('/m','MealController@exportData');
+// Route::get('/meals','MealController@collectData');
 Route::get('/charts','ChartController@all');
