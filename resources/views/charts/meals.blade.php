@@ -69,9 +69,10 @@
                 // for(const[key,value] of Object.entries(bubbleData)){
                 //     bubbleSeries.push(setSeriesBase({chartType:'bubble',seriesData:value,seriesName:key}));
                 // }
-                var bubbleSeries=[setSeriesBase({chartType:'bubble',seriesData:bubbleData})];
                 var bubbleFormatterFunction=function(param){return (rcs[param.data[0]]+'@'+locations[param.data[1]]+': '+param.data[2]);};
-                var bubbleOption=setBaseOption({chartType:'bubble',titleText:'RC Member v.s. RC Canteen',legendData:mealType,xAxisData:rcs,xAxisName:'RC Member',yAxisData:locations,yAxisName:'RC Canteen',series:bubbleSeries,formatterFunction:bubbleFormatterFunction});
+                var bubbleSymbolSizeFunction=function(data){return Math.sqrt(Math.sqrt(data[2]));}
+                var bubbleSeries=[setSeriesBase({chartType:'bubble',formatterFunction:bubbleFormatterFunction,symbolSizeFunction:bubbleSymbolSizeFunction,seriesData:bubbleData})];
+                var bubbleOption=setBaseOption({chartType:'bubble',titleText:'RC Member v.s. RC Canteen',legendData:mealType,xAxisData:rcs,xAxisName:'RC Member',yAxisData:locations,yAxisName:'RC Canteen',series:bubbleSeries});
                 if (bubbleOption && typeof bubbleOption === "object"){
                     chart4.setOption(bubbleOption, true);
                 }

@@ -8,7 +8,7 @@ function setSeriesBase(args){
         itemStyle:{
             normal:{
                 // color:function(params){return colorPalette[params.dataIndex]},
-                label:{show:true,position:'top',formatter:'{a}\n{c}'}
+                // label:{show:true,position:'top',formatter:'{a}\n{c}'}
             }
         }
         //, name:''
@@ -23,7 +23,8 @@ function setSeriesBase(args){
     }
     var bubbleSerieseBase={
         // symbolOffset:[],
-        symbolSize:function(data){return Math.sqrt(data[2])*2;},
+        // symbolSize:function(data){return Math.sqrt(data[2]);},
+        symbolSize:function(){},
         label:{
             emphasis:{
                 show:true,
@@ -58,6 +59,7 @@ function setSeriesBase(args){
     if('seriesData' in args) clone['data']=args.seriesData;
     if('seriesName' in args) clone['name']=args.seriesName;
     if('stack' in args) clone['stack']=args.stack;
+    if('symbolSizeFunction' in args) clone['symbolSize']=args.symbolSizeFunction;
     if('formatterFunction' in args) clone['label']['emphasis']['formatter']=args.formatterFunction;
     if('symbolOffset' in args) clone['symbolOffset']=args.symbolOffset;
     return clone;
