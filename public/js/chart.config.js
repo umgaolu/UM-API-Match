@@ -79,6 +79,7 @@ function setBaseOption(args){
         // ,series:[]
     };
     var barBaseOption={
+        tooltip:{trigger:'item',formatter:"{b} <br/>{a} : {c}"},
         xAxis:{type:'category'
         // ,data:[]
         },
