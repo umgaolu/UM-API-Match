@@ -6,11 +6,6 @@
   <div class="card text-center">
     <div class="card-body">
       <div style="width:100%;min-height:380px" id="chart{{$i}}">
-       <div class="row justify-content-center align-items-center">
-        <div class="col-4">
-          <img src="ajax_loader_gray_128.gif" alt="loading..." style="vertical-align: middle;">
-        </div>
-      </div>
     </div>
   </div>
 </div>
