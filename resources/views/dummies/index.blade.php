@@ -7,7 +7,7 @@
   <thead>
     <tr>
     @foreach($fields as $field)
-          <th>{{ucwords($field)}}</th>
+      <th>{{ucwords($field)}}</th>
     @endforeach
     </tr>
   </thead>
