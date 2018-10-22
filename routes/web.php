@@ -19,6 +19,6 @@
 Route::get('/c','ChartController@index');
 // Route::get('/','ApiController@index');
 // Route::get('/','MealController@collectData');
-Route::get('/','MealController@index');
+Route::get('/','MealController@exportData');
 Route::get('/meals','MealController@collectData');
 Route::get('/charts','ChartController@all');

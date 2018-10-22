@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\ApiConnector;
 use Carbon\CarbonPeriod;
+use MongoDB\MongoClient;
 
 class MealController extends Controller
 {
@@ -83,13 +84,13 @@ class MealController extends Controller
       }
       $lineData[$location]=$tempLine;
     }
-    foreach($mealCounterPie as $key=>$value) {
+    foreach($mealCounterPie as $key=>$value){
       array_push($pieData,array_combine($pieDataName,array($key,$value)));
     }
 
     foreach($period as $periodKey=>$date){
       $curDate=$date->toDateString();
-      $response=$this->connectApi(['consume_date_from'=>urlencode($curDate.$this->startTime),'consume_date_to'=>urlencode($curDate.$this->endTime),'pagesize'=>1]);
+      $response=$this->connectApi(['consume_date_from'=>urlencode($curDate.$this->startTime),'consume_date_to'=>urlencode($curDate.$this->endTime)]);
       $tempCollection=collect($response->_embedded);
       $tempCounter=[];
       foreach($this->mealType as $key=>$meal){
@@ -99,7 +100,7 @@ class MealController extends Controller
       }
       if($response->_total_pages>1){
         for($i=2;$i<=$response->_total_pages;$i++){
-          $response=$this->connectApi(['consume_date_from'=>urlencode($curDate.$this->startTime),'consume_date_to'=>urlencode($curDate.$this->endTime),'page'=>$i,'pagesize'=>1]);
+          $response=$this->connectApi(['consume_date_from'=>urlencode($curDate.$this->startTime),'consume_date_to'=>urlencode($curDate.$this->endTime),'page'=>$i]);
           $tempCollection=collect($response->_embedded);
           foreach ($this->mealType as $key=>$meal) {
             $count=$tempCollection->where('mealType','=',$meal)->count();
@@ -122,5 +123,35 @@ class MealController extends Controller
       }
     }
     return response()->json(['days'=>$days,'lineData'=>$lineData,'barData'=>$barData,'pieData'=>$pieData,'locations'=>$locations,'bubbleData'=>$bubbleData,'rcs'=>$rcs,'mealType'=>$this->mealType]);
+
+  }
+  public function exportData()
+  {
+    // get all data from API
+    $startDate='2018-10-08';
+    $endDate='2018-10-09';
+    $data=array();
+    $dataIndex=0;
+    $response=$this->connectApi(['consume_date_from'=>urlencode($startDate.$this->startTime),'consume_date_to'=>urlencode($endDate.$this->endTime)]);
+    foreach($response->_embedded as $key=>$value){
+      $data=array_merge($data,[$dataIndex=>json_decode(json_encode($value,True))]);
+      $dataIndex++;
+    }
+    if($response->_total_pages>1){
+      for ($i=2;$i<=$response->_total_pages;$i++) {
+        $response=$this->connectApi(['consume_date_from'=>urlencode($startDate.$this->startTime),'consume_date_to'=>urlencode($endDate.$this->endTime),'page'=>$i]);
+        foreach($response->_embedded as $key=>$value){
+          $data=array_merge($data,[$dataIndex=>$value]);
+          $dataIndex++;
+        }
+      }
+    }
+    if(!is_null($data)){
+      var_dump($data);
+      // $mongo=new MongoClient();
+      // $collection=$mongo->db_meal->meal_info;
+      // $collection->batchInsert($users);
+      // return $data;
+    }
   }
 }

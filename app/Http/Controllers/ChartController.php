@@ -20,7 +20,7 @@ class ChartController extends Controller
     $endTime='T23:59:59';
     $period=new CarbonPeriod($startDate,$endDate);
     foreach($period as $date){
-      $days[]=$date->format('Y-m-d');
+      $days[]=$date->format('m-d');
     }
     $period=new CarbonPeriod($startDate,$endDate);
     if ($request->isMethod('get')){

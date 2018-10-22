@@ -66,7 +66,7 @@
                 var dom4 = document.getElementById("chart4");
                 var chart4 = echarts.init(dom4, 'dark');
                 var bubbleFormatterFunction=function(param){return (rcs[param.data[0]]+'@'+locations[param.data[1]]+': '+param.data[2]);};
-                var bubbleSymbolSizeFunction=function(data){return Math.sqrt(data[2])*10;}
+                var bubbleSymbolSizeFunction=function(data){return Math.sqrt(data[2])/2;}
                 var bubbleSeries=[setSeriesBase({chartType:'bubble',seriesData:bubbleData,formatterFunction:bubbleFormatterFunction,symbolSizeFunction:bubbleSymbolSizeFunction})];
                 var bubbleOption=setBaseOption({chartType:'bubble',titleText:'RC Member v.s. RC Canteen',xAxisData:rcs,xAxisName:'RC Member',yAxisData:locations,yAxisName:'RC Canteen',series:bubbleSeries});
                 if (bubbleOption && typeof bubbleOption === "object") {
