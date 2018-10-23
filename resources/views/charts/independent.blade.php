@@ -2,9 +2,9 @@
 
 @section('graphs')
 @for($i=1;$i< 5;$i++)
-<div class="col-md-6 col-sm-12 px-1 pt-1">
-  <div class="card text-center">
-    <div style="width:100%;min-height:46vh" id="chart{{$i}}" class="chart">
+<div class="col-lg-6 col-md-12 px-0">
+  <div class="card">
+    <div style="width:100%;min-height:380px" id="chart{{$i}}" class="chart">
   </div>
 </div>
 </div>
@@ -15,13 +15,12 @@
 <script src="/js/chart.config.js"></script>
 <script>
   $(function(){
-    // console.table({'window':$( window ).height(),'document':$( document ).height()});
     function setChartHeight(){
       if($(window).height()<768&&$(window).height()<=$(window).width()){
         // small screen & landscape
-        $('.chart').height('85vh');
+        $('.chart').height($(window).height()-$('nav').outerHeight());
       }else{
-        $('.chart').height('46vh');
+        $('.chart').height(($(window).height()-$('nav').outerHeight())/2-3);
       }
     }
     setChartHeight();
@@ -52,7 +51,6 @@
       if(chart4 != null && chart4 != undefined){
         chart4.resize();
       }
-      // console.table({'window':$( window ).height(),'document':$( document ).height()});
     });
     $.ajaxSetup({
       headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
