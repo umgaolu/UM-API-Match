@@ -8,13 +8,7 @@ body {
   vertical-align: text-bottom;
 }
 
-
 [role="main"] {
-    padding-top: 48px; /* Space for fixed navbar */
+    padding-top: 56px; /* Space for fixed navbar */
 }
 
-/*canvas {
-  background-color: blue;
-  width: 100%;
-  height: auto;
-}*/
