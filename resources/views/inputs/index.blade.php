@@ -14,7 +14,7 @@
           </div>
         </div>
       </div>
-      <div class="row align-items-center justify-content-center">
+      <div class="row align-items-start justify-content-center">
         <div class="form-group col8 col-md-2 mb-1 rc-check">
           <h5>RC Member</h5>
           @foreach($rcs as $rc)
