@@ -1,16 +1,17 @@
 @extends('charts.master')
 
-@section('graphs')
-@for($i=1;$i< 5;$i++)
-<div class="col-md-6 col-sm-12 pt-3">
-  <div class="card text-center">
-    <div class="card-body">
-      <div style="width:100%;min-height:380px" id="chart{{$i}}">
+@section('content')
+<div class="row">
+  @for($i=1;$i< 5;$i++)
+  <div class="col-md-6 col-sm-12 pt-3">
+    <div class="card text-center">
+      <div class="card-body">
+        <div style="width:100%;min-height:380px" id="chart{{$i}}"></div>
+      </div>
     </div>
   </div>
+  @endfor
 </div>
-</div>
-@endfor
 @endsection
 
 @section('scripts')

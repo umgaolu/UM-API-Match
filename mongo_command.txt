@@ -1,0 +1,4 @@
+mongodump -d db -c sourcecollection 
+mongorestore -d db -c targetcollection --dir=dump/<db>/<sourcecollection.bson>
+
+mongoexport -d db -c sourcecollection | mongoimport -d db -c targetcollection --drop

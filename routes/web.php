@@ -26,3 +26,4 @@ Route::get('/line','ChartController@line');
 Route::get('/bar','ChartController@bar');
 Route::get('/pie','ChartController@pie');
 Route::get('/bubble','ChartController@bubble');
+Route::get('/i','FilterInputController@index');

@@ -90,12 +90,23 @@ return [
             ]
         ],
 
-
         'db_meal' => [
             'driver'   => 'mongodb',
             'host'     => env('DB_HOST', 'localhost'),
             'port'     => env('DB_PORT_MONGO', 27017),
             'database' => 'db_meal',
+            'username' => env('DB_USERNAME_MONGO', ''),
+            'password' => env('DB_PASSWORD_MONGO', ''),
+            'options'  => [
+                'database' => 'admin' // sets the authentication database required by mongo 3
+            ]
+        ],
+
+        'um_api' => [
+            'driver'   => 'mongodb',
+            'host'     => env('DB_HOST', 'localhost'),
+            'port'     => env('DB_PORT_MONGO', 27017),
+            'database' => 'um_api',
             'username' => env('DB_USERNAME_MONGO', ''),
             'password' => env('DB_PASSWORD_MONGO', ''),
             'options'  => [

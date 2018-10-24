@@ -1,11 +1,13 @@
 @extends('charts.master')
 
-@section('graphs')
-<!-- <div id="chart" style="width: 100%; min-height: 800px"></div> -->
-<div class="col-md-6 col-sm-12 pt-3"><div class="card"><div class="card-body"><div style="width: 100%; min-height: 380px" id="chart1"></div></div></div></div>
-<div class="col-md-6 col-sm-12 pt-3"><div class="card"><div class="card-body"><div style="width: 100%; min-height: 380px" id="chart2"></div></div></div></div>
-<div class="col-md-6 col-sm-12 pt-3"><div class="card"><div class="card-body"><div style="width: 100%; min-height: 380px" id="chart3"></div></div></div></div>
-<div class="col-md-6 col-sm-12 pt-3"><div class="card"><div class="card-body"><div style="width: 100%; min-height: 380px" id="chart4"></div></div></div></div>
+@section('content')
+<div class="row">
+    <!-- <div id="chart" style="width: 100%; min-height: 800px"></div> -->
+    <div class="col-md-6 col-sm-12 pt-3"><div class="card"><div class="card-body"><div style="width: 100%; min-height: 380px" id="chart1"></div></div></div></div>
+    <div class="col-md-6 col-sm-12 pt-3"><div class="card"><div class="card-body"><div style="width: 100%; min-height: 380px" id="chart2"></div></div></div></div>
+    <div class="col-md-6 col-sm-12 pt-3"><div class="card"><div class="card-body"><div style="width: 100%; min-height: 380px" id="chart3"></div></div></div></div>
+    <div class="col-md-6 col-sm-12 pt-3"><div class="card"><div class="card-body"><div style="width: 100%; min-height: 380px" id="chart4"></div></div></div></div>
+</div>
 @endsection
 
 @section('scripts')

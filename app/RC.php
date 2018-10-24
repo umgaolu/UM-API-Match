@@ -4,8 +4,8 @@ namespace App;
 
 use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 
-class Dummy extends Eloquent
+class RC extends Eloquent
 {
     protected $connection = 'um_api';
-    protected $collection = 'meal_consumption';
+    protected $collection = 'rc';
 }
