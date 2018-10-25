@@ -6,6 +6,9 @@
   <div class="col-lg-6 col-md-12 px-0">
     <div class="card">
       <div style="width:100%;min-height:380px" id="chart{{$i}}" class="chart"></div>
+       <p> rcsssssss{{$rcs}}</p>
+       <p> cantttennn{{$canteens}}</p>
+       <p> maael{{$meals}}</p>
     </div>
   </div>
   @endfor

@@ -10,16 +10,24 @@ class ChartController extends Controller
   private $rcs=['MLC','CKLC','CKYC','FPJC','MCMC','SPC','CYTC','SEAC','LCWC'];
   private $canteens=['MLC','CKLC','CKYC','FPJC','MCMC','SPC','CYTC','SEAC','LCWC'];
   private $mealType=["BREAKFAST","LUNCH","DINNER"];
-  public function index()
+  public function index(Request $request)
   {
-    return view('charts.all');
+    if($request->isMethod('post')){
+      return view('charts.independent')->with(['rcs'=>$request->rc,'canteens'=>$request->canteen,'meals'=>$request->meal,'startDate'=>$request->startDate,'startDate'=>$request->endDate]);
+    }else{
+      return view('charts.all');
+    }
   }
-  public function load()
+  public function load(Request $request)
   {
-    return view('charts.independent');
+    if($request->isMethod('post')){
+      return view('charts.independent')->with(['rcs'=>json_encode($request->rc),'canteens'=>json_encode($request->canteen),'meals'=>json_encode($request->meal),'startDate'=>$request->startDate,'startDate'=>$request->endDate]);
+    }else{
+      return view('charts.independent');
+    }
   }
   public function line(Request $request){
-    if ($request->isMethod('get')){
+    if($request->isMethod('get')){
       $startDate='2018-10-08';
       $endDate='2018-10-20';
       $period=new CarbonPeriod($startDate,$endDate);
@@ -43,7 +51,7 @@ class ChartController extends Controller
     }
   }
   public function bar(Request $request){
-    if ($request->isMethod('get')){
+    if($request->isMethod('get')){
       $barData=[];
       $startDate='2018-10-08';
       $endDate='2018-10-20';
@@ -64,14 +72,14 @@ class ChartController extends Controller
     }
   }
   public function pie(Request $request){
-    if ($request->isMethod('get')){
+    if($request->isMethod('get')){
       $startDate='2018-10-08';
       $endDate='2018-10-20';
       $locations=$this->canteens;
       sort($locations);
       $pieData=[];
       $pieDataName=array('name','value');
-      foreach ($locations as $key=>$value){
+      foreach($locations as $key=>$value){
         $count=Dummy::whereBetween('consumeTime',[$startDate,$endDate])->where('consumptionLocation','=',$value)->count();
         array_push($pieData,array_combine($pieDataName,array($value,$count)));
       }
@@ -79,7 +87,7 @@ class ChartController extends Controller
     }
   }
   public function bubble(Request $request){
-    if ($request->isMethod('get')){
+    if($request->isMethod('get')){
       $startDate='2018-10-08';
       $endDate='2018-10-20';
       $rcs=$this->rcs;
@@ -87,7 +95,7 @@ class ChartController extends Controller
       $locations=$this->canteens;
       sort($locations);
       $bubbleData=[];
-      foreach ($rcs as $rcKey=>$rc) {
+      foreach($rcs as $rcKey=>$rc){
         foreach ($locations as $locationKey=>$location) {
           $count=Dummy::where('rcMember','=',$rc)->where('consumptionLocation','=',$location)->whereBetween('consumeTime',[$startDate,$endDate])->count();
           // App\Dummy::where('rcMember','=','CKLC')->where('consumptionLocation','=','CKLC')->whereBetween('consumeTime',['2018-10-08','2018-10-20'])->count();

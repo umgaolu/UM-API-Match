@@ -3,7 +3,7 @@
 @section('content')
 <div class="row occupy lign-items-center justify-content-center">
   <div class="col-12 align-self-center">
-    <form id="chart-filter" novalidate>
+    <form id="chart-filter" method="POST" action="/charts" novalidate>
       @csrf
       <div class="row align-items-center justify-content-center">
         <div class="col-sm-8 col-md-6 align-self-center">
@@ -19,7 +19,7 @@
           <h5>RC Member</h5>
           @foreach($rcs as $rc)
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="{{$rc}}" id="rc-{{$rc}}"><label class="form-check-label" for="rc-{{$rc}}">{{$rc}}</label>
+            <input class="form-check-input" type="checkbox" value="{{$rc}}" id="rc-{{$rc}}" name="rc[]"><label class="form-check-label" for="rc-{{$rc}}">{{$rc}}</label>
           </div>
           @endforeach
           <div class="invalid-feedback">
@@ -29,7 +29,7 @@
           <h5>RC Canteen</h5>
           @foreach($rcs as $rc)
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="{{$rc}}" id="canteen-{{$rc}}"><label class="form-check-label" for="canteen-{{$rc}}">{{$rc}}</label>
+            <input class="form-check-input" type="checkbox" value="{{$rc}}" id="canteen-{{$rc}}" name="canteen[]"><label class="form-check-label" for="canteen-{{$rc}}">{{$rc}}</label>
           </div>
           @endforeach
           <div class="invalid-feedback">
@@ -39,7 +39,7 @@
           <h5>Meal</h5>
           @foreach(['BREAKFAST','LUNCH','DINNER'] as $meal)
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="{{$meal}}" id="{{$meal}}"><label class="form-check-label" for="{{$meal}}">{{ucwords(strtolower($meal))}}</label>
+            <input class="form-check-input" type="checkbox" value="{{$meal}}" id="{{$meal}}" name="meal[]"><label class="form-check-label" for="{{$meal}}">{{ucwords(strtolower($meal))}}</label>
           </div>
           @endforeach
           <div class="invalid-feedback">
@@ -48,21 +48,22 @@
       </div>
       <div class="row justify-content-center">
         <div class="form-group col-8 col-md-2 mb-1">
-          <label for="startDate">Date from</label>
+          <label for="startDate"><h5>Date from</h5></label>
           <div class="input-group date" id="startDate">
             <input type="date" class="form-control" name="startDate" max="2018-10-20" min="2018-10-08">
           </div>
         </div>
         <div class="form-group col-8 col-md-2 mb-1">
-          <label for="endDate">Date to</label>
+          <label for="endDate"><h5>Date to</h5></label>
           <div class="input-group date" id="endDate">
             <input type="date" class="form-control" name="endDate" max="2018-10-20" min="2018-10-08">
           </div>
         </div>
       </div>
+      <div class="row justify-content-center"><div class="form-group col-8 col-md-6 mb-1"><hr></div></div>
       <div class="row justify-content-center">
-        <div class="form-group col-sm-8 align-self-center text-center mb-1">
-          <button class="btn btn-primary" type="submit">Go</button>
+        <div class="form-group col-sm-8 align-self-center text-center mb-1 pt-1">
+          <button class="btn btn-primary" type="submit" id="submitBtn">Go</button>
           <button class="btn btn-success" type="reset">Reset</button>
         </div>
       </div>
@@ -73,6 +74,23 @@
 
 @section('scripts')
 <script>
+  $('#submitBtn').click(function(e){
+    // e.preventDefault();
+    var rcs=[];
+    var canteens=[];
+    var meals=[];
+    $.each($("input[name='rc[]']:checked"), function(){
+      rcs.push($(this).val());
+    });
+    $.each($("input[name='canteen[]']:checked"), function(){
+      canteens.push($(this).val());
+    });
+    $.each($("input[name='meal[]']:checked"), function(){
+      meals.push($(this).val());
+    });
+    console.table({'rc':rcs,'canteen':canteens,'meal':meals})
+    $('.chart-filter').submit();
+  });
   $(function(){
     $('.occupy').height($(window).height()-$('nav').outerHeight()*2);
     $(window).on('resize', function(){
