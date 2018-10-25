@@ -3,10 +3,10 @@
 @section('content')
 <div class="row occupy lign-items-center justify-content-center">
   <div class="col-12 align-self-center">
-    <form id="chart-filter" method="POST" action="/charts" novalidate>
+    <form id="chart-filter" method="POST" action="/charts" novalidate autocomplete="off">
       @csrf
       <div class="row align-items-center justify-content-center">
-        <div class="col-sm-8 col-md-6 align-self-center">
+        <div class="col-8 col-md-6 align-self-center">
           <div class="py-1 text-justify"><!--
             <img class="d-block mx-auto mb-4" src="" alt="" width="72" height="72"> -->
             <h2>Some text</h2>
@@ -15,7 +15,7 @@
         </div>
       </div>
       <div class="row align-items-start justify-content-center">
-        <div class="form-group col8 col-md-2 mb-1 rc-check">
+        <div class="form-group col-8 col-md-2 mb-1 rc-check">
           <h5>RC Member</h5>
           @foreach($rcs as $rc)
           <div class="form-check">
@@ -25,7 +25,7 @@
           <div class="invalid-feedback">
           </div>
         </div>
-        <div class="form-group col8 col-md-2 mb-1 canteen-check">
+        <div class="form-group col-8 col-md-2 mb-1 canteen-check">
           <h5>RC Canteen</h5>
           @foreach($rcs as $rc)
           <div class="form-check">
@@ -35,7 +35,7 @@
           <div class="invalid-feedback">
           </div>
         </div>
-        <div class="form-group col8 col-md-2 mb-1 meal-check">
+        <div class="form-group col-8 col-md-2 mb-1 meal-check">
           <h5>Meal</h5>
           @foreach(['BREAKFAST','LUNCH','DINNER'] as $meal)
           <div class="form-check">
@@ -92,10 +92,13 @@
     $('.chart-filter').submit();
   });
   $(function(){
-    $('.occupy').height($(window).height()-$('nav').outerHeight()*2);
-    $(window).on('resize', function(){
+    console.log($(window).height());
+    if($(window).height()>=768){
       $('.occupy').height($(window).height()-$('nav').outerHeight()*2);
-    });
+      $(window).on('resize', function(){
+        $('.occupy').height($(window).height()-$('nav').outerHeight()*2);
+      });
+    }
   });
   (function(){
     'use strict';

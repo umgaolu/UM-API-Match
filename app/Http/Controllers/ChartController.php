@@ -10,99 +10,126 @@ class ChartController extends Controller
   private $rcs=['MLC','CKLC','CKYC','FPJC','MCMC','SPC','CYTC','SEAC','LCWC'];
   private $canteens=['MLC','CKLC','CKYC','FPJC','MCMC','SPC','CYTC','SEAC','LCWC'];
   private $mealType=["BREAKFAST","LUNCH","DINNER"];
+  private $startDate='2018-10-08';
+  private $endDate='2018-10-20';
   public function index(Request $request)
   {
     if($request->isMethod('post')){
-      return view('charts.independent')->with(['rcs'=>$request->rc,'canteens'=>$request->canteen,'meals'=>$request->meal,'startDate'=>$request->startDate,'startDate'=>$request->endDate]);
+      return view('charts.independent')->with(['rcs'=>$request->rc,'canteens'=>$request->canteen,'meals'=>$request->meal,'startDate'=>$request->startDate,'endDate'=>$request->endDate]);
     }else{
       return view('charts.all');
     }
   }
+  public function loadFiltered(Request $request)
+  {
+    // dd($request->startDate!=null);
+    if($request->rc){$rcs=$request->rc;}else{$rcs=$this->rcs;}
+    if($request->canteen){$canteens=$request->canteen;}else{$canteens=$this->canteens;}
+    if($request->meal){$meals=$request->meal;}else{$meals=$this->mealType;}
+    if($request->startDate!=null){$startDate=$request->startDate;}else{$startDate=$this->startDate;}
+    if($request->endDate!=null){$endDate=$request->endDate;}else{$endDate=$this->endDate;}
+    // dd(json_encode($rcs));
+    return view('charts.filtered')->with(['rcs'=>json_encode($rcs),'canteens'=>json_encode($canteens),'meals'=>json_encode($meals),'startDate'=>$startDate,'endDate'=>$endDate]);
+  }
   public function load(Request $request)
   {
-    if($request->isMethod('post')){
-      return view('charts.independent')->with(['rcs'=>json_encode($request->rc),'canteens'=>json_encode($request->canteen),'meals'=>json_encode($request->meal),'startDate'=>$request->startDate,'startDate'=>$request->endDate]);
-    }else{
-      return view('charts.independent');
-    }
+    return view('charts.independent');
   }
   public function line(Request $request){
     if($request->isMethod('get')){
-      $startDate='2018-10-08';
-      $endDate='2018-10-20';
-      $period=new CarbonPeriod($startDate,$endDate);
-      foreach($period as $date){
-        $days[]=$date->format('m-d');
-      }
-      $lineData=[];
+      $startDate=$this->startDate;
+      $endDate=$this->endDate;
       $locations=$this->canteens;
-      sort($locations);
-      foreach($locations as $locationKey=>$location){
-        $tempSeries=[];
-        foreach($period as $periodKey=>$date){
-          $curDate=$date->toDateString();
-          // Moloquent collections cannot use whereDate to check date
-          $count=Dummy::where('consumeTime','like',$curDate.'%')->where('consumptionLocation','=',$location)->count();
-          array_push($tempSeries,$count);
-        }
-        $lineData[$location]=$tempSeries;
-      }
-      return response()->json(['lineXAxis'=>$days,'lineData'=>$lineData,'lineLegend'=>$locations]);
+    }elseif($request->isMethod('post')){
+      $startDate=$request->startDate;
+      $endDate=$request->endDate;
+      $locations=$request->canteens;
     }
+    $period=new CarbonPeriod($startDate,$endDate);
+    foreach($period as $date){
+      $days[]=$date->format('m-d');
+    }
+    $lineData=[];
+    sort($locations);
+    foreach($locations as $locationKey=>$location){
+      $tempSeries=[];
+      foreach($period as $periodKey=>$date){
+        $curDate=$date->toDateString();
+        // Moloquent collections cannot use whereDate to check date
+        $count=Dummy::where('consumeTime','like',$curDate.'%')->where('consumptionLocation','=',$location)->count();
+        array_push($tempSeries,$count);
+      }
+      $lineData[$location]=$tempSeries;
+    }
+    return response()->json(['lineXAxis'=>$days,'lineData'=>$lineData,'lineLegend'=>$locations]);
   }
   public function bar(Request $request){
     if($request->isMethod('get')){
-      $barData=[];
-      $startDate='2018-10-08';
-      $endDate='2018-10-20';
-      $period=new CarbonPeriod($startDate,$endDate);
-      foreach($period as $date){
-        $days[]=$date->format('m-d');
-      }
-      foreach($this->mealType as $mealKey=>$meal){
-        $tempSeries=[];
-        foreach($period as $periodKey=>$date){
-          $curDate=$date->toDateString();
-          $count=Dummy::where('consumeTime','like',$curDate.'%')->where('mealType','=',$meal)->count();
-          array_push($tempSeries,$count);
-        }
-        $barData[$meal]=$tempSeries;
-      }
-      return response()->json(['barXAxis'=>$days,'barData'=>$barData,'barLegend'=>$this->mealType]);
+      $startDate=$this->startDate;
+      $endDate=$this->endDate;
+      $meals=$this->mealType;
+    }elseif($request->isMethod('post')){
+      $startDate=$request->startDate;
+      $endDate=$request->endDate;
+      $meals=$request->meals;
     }
+    $barData=[];
+    $period=new CarbonPeriod($startDate,$endDate);
+    foreach($period as $date){
+      $days[]=$date->format('m-d');
+    }
+    foreach($meals as $mealKey=>$meal){
+      $tempSeries=[];
+      foreach($period as $periodKey=>$date){
+        $curDate=$date->toDateString();
+        $count=Dummy::where('consumeTime','like',$curDate.'%')->where('mealType','=',$meal)->count();
+        array_push($tempSeries,$count);
+      }
+      $barData[$meal]=$tempSeries;
+    }
+    return response()->json(['barXAxis'=>$days,'barData'=>$barData,'barLegend'=>$this->mealType]);
   }
   public function pie(Request $request){
     if($request->isMethod('get')){
-      $startDate='2018-10-08';
-      $endDate='2018-10-20';
+      $startDate=$this->startDate;
+      $endDate=$this->endDate;
       $locations=$this->canteens;
-      sort($locations);
-      $pieData=[];
-      $pieDataName=array('name','value');
-      foreach($locations as $key=>$value){
-        $count=Dummy::whereBetween('consumeTime',[$startDate,$endDate])->where('consumptionLocation','=',$value)->count();
-        array_push($pieData,array_combine($pieDataName,array($value,$count)));
-      }
-      return response()->json(['pieData'=>$pieData,'pieLegend'=>$locations]);
+    }elseif($request->isMethod('post')){
+      $startDate=$request->startDate;
+      $endDate=$request->endDate;
+      $locations=$request->canteens;
     }
+    sort($locations);
+    $pieData=[];
+    $pieDataName=array('name','value');
+    foreach($locations as $key=>$value){
+      $count=Dummy::whereBetween('consumeTime',[$startDate,$endDate])->where('consumptionLocation','=',$value)->count();
+      array_push($pieData,array_combine($pieDataName,array($value,$count)));
+    }
+    return response()->json(['pieData'=>$pieData,'pieLegend'=>$locations]);
   }
   public function bubble(Request $request){
     if($request->isMethod('get')){
-      $startDate='2018-10-08';
-      $endDate='2018-10-20';
+      $startDate=$this->startDate;
+      $endDate=$this->endDate;
       $rcs=$this->rcs;
-      sort($rcs);
       $locations=$this->canteens;
-      sort($locations);
-      $bubbleData=[];
-      foreach($rcs as $rcKey=>$rc){
-        foreach ($locations as $locationKey=>$location) {
-          $count=Dummy::where('rcMember','=',$rc)->where('consumptionLocation','=',$location)->whereBetween('consumeTime',[$startDate,$endDate])->count();
-          // App\Dummy::where('rcMember','=','CKLC')->where('consumptionLocation','=','CKLC')->whereBetween('consumeTime',['2018-10-08','2018-10-20'])->count();
-          if ($count>0) {
+    }elseif($request->isMethod('post')){
+      $startDate=$request->startDate;
+      $endDate=$request->endDate;
+      $locations=$request->canteens;
+      $rcs=$request->rcs;
+    }
+    sort($rcs);
+    sort($locations);
+    $bubbleData=[];
+    foreach($rcs as $rcKey=>$rc){
+      foreach ($locations as $locationKey=>$location) {
+        $count=Dummy::where('rcMember','=',$rc)->where('consumptionLocation','=',$location)->whereBetween('consumeTime',[$startDate,$endDate])->count();
+          // App\Dummy::where('rcMember','=','CKLC')->where('consumptionLocation','=','CKLC')->whereBetween('consumeTime',[$this->startDate,$this->endDate])->count();
+        if ($count>0) {
                       // only numerial data can be used to draw scatter plot
-            array_push($bubbleData, array($rcKey,$locationKey,$count));
-          }
+          array_push($bubbleData, array($rcKey,$locationKey,$count));
         }
       }
     }
@@ -110,8 +137,8 @@ class ChartController extends Controller
   }
   public function all(Request $request)
   {
-    $startDate='2018-10-08';
-    $endDate='2018-10-20';
+    $startDate=$this->startDate;
+    $endDate=$this->endDate;
     $startTime='T00:00:00';
     $endTime='T23:59:59';
     $period=new CarbonPeriod($startDate,$endDate);
