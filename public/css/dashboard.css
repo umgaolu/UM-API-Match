@@ -3,9 +3,10 @@ body {
 }
 
 .feather {
-  width: 16px;
-  height: 16px;
-  vertical-align: text-bottom;
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
+  /*vertical-align: text-bottom;*/
 }
 
 [role="main"] {

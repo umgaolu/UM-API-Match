@@ -63,8 +63,8 @@
       <div class="row justify-content-center"><div class="form-group col-8 col-md-6 mb-1"><hr></div></div>
       <div class="row justify-content-center">
         <div class="form-group col-sm-8 align-self-center text-center mb-1 pt-1">
-          <button class="btn btn-primary" type="submit" id="submitBtn">Go</button>
-          <button class="btn btn-success" type="reset">Reset</button>
+          <button class="btn btn-primary" type="submit" id="submitBtn"><span data-feather="check"></span>&nbsp;&nbsp;Go&nbsp;&nbsp;</button>
+          <button class="btn btn-danger" type="reset"><span data-feather="rotate-ccw"></span>&nbsp;Reset</button>
         </div>
       </div>
     </form>
