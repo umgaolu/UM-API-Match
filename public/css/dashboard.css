@@ -17,3 +17,7 @@ body {
   border: none;
 }
 */
+#chart-filter {
+  max-width:750px;
+  margin-top:1rem;
+}

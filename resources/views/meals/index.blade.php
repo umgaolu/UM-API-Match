@@ -58,25 +58,25 @@
       </div>
     </div>
   </div>
-  <div class="row align-items-center justify-content-center"><div class="col-8 col-md-6 mb-1"><hr></div></div>
+  <div class="row align-items-center justify-content-center"><div class="col-10 col-md-6 mb-1"><hr></div></div>
   <div class="row align-items-center justify-content-center">
-    <div class="col-sm-8 align-self-center text-center mb-1 pt-1">
+    <div class="col-sm-8 align-self-center text-center mb-3 py-1">
       <button class="btn btn-success btn-lg go-btn"><span data-feather="check"></span>&nbsp;&nbsp;Check other time&nbsp;&nbsp;</button>
     </div>
   </div>
 </div></div>
 </div>
-<div class="container" id="start" style="max-width:600px;min-height:80vh;padding-bottom:1rem">
-  <div class="card card-outline-secondary" style="margin:-0.5rem;padding:0.5rem;background-color:#FAFAFA">
+<div class="container py-3" id="filter" style="max-width:750px;min-height:90vh;display:none">
+  <div class="card card-outline-secondary" style="padding:0.5rem;background-color:#FAFAFA">
+    <div class="card-header"><h4 class="text-info text-xs-center" style="padding-top:1rem;padding-bottom:1rem">When and where do you want to check?</h4></div>
+    <div class="card-body">
     <form id="chart-filter" autocomplete="off">
       @csrf
       <div class="form-group row">
-        <label class="col-xs-12 col-form-label"><b>Canteens</b></label>
-      </div>
-      <div class="form-group row">
-        <div class="col-xs-12 col-sm-12 col-md-10">
+        <label class="col-md-2  col-form-label d-sm-none d-md-block" for="canteen"><h5>Canteens</h5></label>
+        <div class="col-12 col-md-10">
           <select class="form-control" name="canteen" id="canteen">
-            <option>Default select</option>
+            <option>--Canteen--</option>
             @foreach($rcs as $rc)
             <option>{{$rc}}</option>
             @endforeach
@@ -86,39 +86,47 @@
       </div>
       <hr>
       <div class="form-group row">
-        <label class="col-xs-12 col-form-label"><b>Consumption Time</b></label>
+        <label class="col-12 col-form-label"><h5>Consumption Time</h5></label>
       </div>
       <div class="form-group row">
-        <label for="startDate"><h5>From</h5></label>
-          <div class="col-xs-12 col-sm-12 col-md-10">
-            <input type="date" class="form-control" name="startDate"  id="startDate" max="2018-10-20" min="2018-10-08">
+        <label for="startDate" class="col-2  col-form-label"><h5>From</h5></label>
+          <div class="col-10">
+            <input class="form-control" type="text" id="startDate" data-format="YYYY-MM-DD HH:mm" data-template="YYYY / MM / DD  HH : mm" name="startDate" value="{{date('Y-m-d H:i',round((time()-1200)/1200)*1200)}}">
         </div>
       </div>
       <div class="form-group row">
-        <label for="startDate"><h5>To</h5></label>
-          <div class="col-xs-12 col-sm-12 col-md-10">
-            <input type="date" class="form-control" name="startDate"  id="startDate" max="2018-10-20" min="2018-10-08">
+        <label for="endDate" class="col-2  col-form-label"><h5>To</h5></label>
+          <div class="col-10">
+            <input class="form-control" type="text" id="endDate" data-format="YYYY-MM-DD HH:mm" data-template="YYYY / MM / DD  HH : mm" name="endDate" value="{{date('Y-m-d H:i',round(time()/1200)*1200)}}">
         </div>
       </div>
-      <div class="row">
+      <div class="row align-items-center justify-content-center">
         <div class="col-xs-12 text-xs-center">
-      <button class="btn btn-primary" type="submit" id="submitBtn"><span data-feather="check"></span>&nbsp;&nbsp;Go&nbsp;&nbsp;</button>
-      <button class="btn btn-danger" type="reset"><span data-feather="rotate-ccw"></span>&nbsp;Reset</button>
+          <button class="btn btn-primary" type="submit" id="submitBtn"><span data-feather="check"></span>&nbsp;&nbsp;Go&nbsp;&nbsp;</button>
+          <button class="btn btn-danger" type="reset"><span data-feather="rotate-ccw"></span>&nbsp;Reset</button>
         </div>
       </div>
     </form>
+  </div>
   </div>
 </div>
 @endsection
 
 @section('scripts')
-<script src="/js/chart.config.js"></script>
+<script src="/js/moment.js"></script>
+<script src="/js/combodate.js"></script>
 <script>
   $('#submitBtn').click(function(e){
     e.preventDefault();
+    console.log($('#startDate').val());
   });
   $(function(){
+    $('#startDate').combodate();
+    $('#endDate').combodate();
+    $('.nav-item').removeClass('active');
+    $('.nav-meal').addClass('active');
     console.log($(window).height());
+    console.log($(document).height());
     if($(window).height()>=768){
       $('.occupy').height($(window).height()-$('nav').outerHeight());
       $(window).on('resize', function(){
@@ -128,7 +136,9 @@
     $('.occupy').fadeIn(1000);
     $('.go-btn').click(function(e){
       e.preventDefault();
-      $('html,body').animate({scrollTop:$('#start').offset().top+$('nav').outerHeight()}, 600);
+      // $(this).hide();
+      $('html,body').animate({scrollTop:$('.container-fluid').height()+$('nav').outerHeight()}, 600);
+      $('#filter').fadeIn(1000);
     });
   });
 </script>
