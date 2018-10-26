@@ -22,69 +22,36 @@
     </div>
   </div>
   <div class="container">
-    <!-- Example row of columns -->
-    <div class="row">
-      <div class="col-md-3">
-        <div class="card mb-3 shadow-sm">
-          <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
+    <div class="card-deck">
+        <div class="card border-primary mb-3 shadow-sm">
+          <img class="card-img-top" src="/FrontPage/Meal.png" alt="">
           <div class="card-body">
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-              </div>
-              <small class="text-muted">9 mins</small>
-            </div>
+            <h5 class="card-title">How many people are enjoying meals?</h5>
+            <a href="#" class="btn btn-lg btn-outline-primary">View</a>
           </div>
         </div>
-      </div>
-      <div class="col-md-3">
-        <div class="card mb-3 shadow-sm">
-          <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
+        <div class="card border-success mb-3 shadow-sm">
+          <img class="card-img-top" src="/FrontPage/Event.png" alt="">
           <div class="card-body">
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-              </div>
-              <small class="text-muted">9 mins</small>
-            </div>
+            <h5 class="card-title">Latest event</h5>
+            <a href="#" class="btn btn-lg btn-outline-success">View</a>
+          </div>
+      </div>
+        <div class="card border-info mb-3 shadow-sm">
+          <img class="card-img-top" src="/FrontPage/News.png" alt="">
+          <div class="card-body">
+            <h5 class="card-title">What is happening around UM?</h5>
+            <a href="#" class="btn btn-lg btn-outline-info">View</a>
           </div>
         </div>
-      </div>
-      <div class="col-md-3">
         <div class="card mb-3 shadow-sm">
-          <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
+          <img class="card-img-top" src="/FrontPage/Other.png" alt="Card image cap">
           <div class="card-body">
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-              </div>
-              <small class="text-muted">9 mins</small>
-            </div>
+            <h5 class="card-title">More is coming</h5>
           </div>
         </div>
-      </div>
-      <div class="col-md-3">
-        <div class="card mb-3 shadow-sm">
-          <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
-          <div class="card-body">
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-              </div>
-              <small class="text-muted">9 mins</small>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
+
     <hr>
 
   </div> <!-- /container -->
@@ -92,7 +59,7 @@
 </main>
 
 <footer class="container">
-  <p>&copy; Company 2017-2018</p>
+  <p>UM Hackathon 26-27/10/2018</p>
 </footer>
 
 <script src="/js/echarts.min.js"></script>

@@ -12,14 +12,6 @@ class ChartController extends Controller
   private $mealType=["BREAKFAST","LUNCH","DINNER"];
   private $startDate='2018-10-08';
   private $endDate='2018-10-20';
-  public function index(Request $request)
-  {
-    if($request->isMethod('post')){
-      return view('charts.independent')->with(['rcs'=>$request->rc,'canteens'=>$request->canteen,'meals'=>$request->meal,'startDate'=>$request->startDate,'endDate'=>$request->endDate]);
-    }else{
-      return view('charts.all');
-    }
-  }
   public function loadFiltered(Request $request)
   {
     // dd($request->startDate!=null);
