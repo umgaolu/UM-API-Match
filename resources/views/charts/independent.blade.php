@@ -1,4 +1,4 @@
-@extends('charts.master')
+@extends('layouts.master')
 
 @section('content')
 <div class="row">

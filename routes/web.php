@@ -34,4 +34,5 @@ Route::get('/','FilterInputController@index');
 Route::view('/welcome', 'welcome');
 Route::post('/charts','ChartController@loadFiltered');
 Route::get('/show','ChartController@load');
+Route::get('/m','MealInputController@index');
 // Route::post('/charts','ChartController@load');
