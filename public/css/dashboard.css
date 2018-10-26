@@ -1,0 +1,15 @@
+body {
+  font-size: .875rem;
+}
+
+.feather {
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
+  /*vertical-align: text-bottom;*/
+}
+
+[role="main"] {
+    padding-top: 56px; /* Space for fixed navbar */
+}
+
