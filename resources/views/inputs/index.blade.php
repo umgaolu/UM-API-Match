@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container-fluid" role="main">
-<div class="row occupy lign-items-center justify-content-center">
+<div class="row occupy align-items-center justify-content-center">
   <div class="col-12 align-self-center">
     <form id="chart-filter" method="POST" action="/charts" novalidate autocomplete="off">
       @csrf

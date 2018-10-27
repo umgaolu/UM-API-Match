@@ -27,21 +27,21 @@
           <img class="card-img-top" src="/FrontPage/Meal.png" alt="">
           <div class="card-body">
             <h5 class="card-title">How many people are enjoying meals?</h5>
-            <a href="/meal" class="btn btn-lg btn-outline-primary">View</a>
+            <a href="/meal" class="btn btn-lg btn-outline-primary">Let's See</a>
           </div>
         </div>
         <div class="card border-success mb-3 shadow-sm">
           <img class="card-img-top" src="/FrontPage/Event.png" alt="">
           <div class="card-body">
-            <h5 class="card-title">Latest event</h5>
-            <a href="#" class="btn btn-lg btn-outline-success">View</a>
+            <h5 class="card-title">What interesting events are on the way?</h5>
+            <a href="/event" class="btn btn-lg btn-outline-success">Go Ckeck</a>
           </div>
       </div>
         <div class="card border-info mb-3 shadow-sm">
           <img class="card-img-top" src="/FrontPage/News.png" alt="">
           <div class="card-body">
             <h5 class="card-title">What is happening around UM?</h5>
-            <a href="#" class="btn btn-lg btn-outline-info">View</a>
+            <a href="#" class="btn btn-lg btn-outline-info">Get informed</a>
           </div>
         </div>
         <div class="card mb-3 shadow-sm">
