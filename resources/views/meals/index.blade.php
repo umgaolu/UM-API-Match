@@ -77,9 +77,9 @@
         <label class="col-md-2  col-form-label d-sm-none d-md-block" for="canteen"><h5>Canteens</h5></label>
         <div class="col-12 col-md-10">
           <select class="form-control" name="canteen" id="canteen">
-            <option>--Canteen--</option>
+            <option value="">--Canteen--</option>
             @foreach($rcs as $rc)
-            <option>{{$rc}}</option>
+            <option value="{{$rc}}">{{$rc}}</option>
             @endforeach
           </select>
           <span id="warning-account" class="form-control-feedback" style="display:none"></span>
@@ -111,6 +111,24 @@
   </div>
   </div>
 </div>
+<div class="modal fade" id="showMeals" tabindex="-1" role="dialog" aria-labelledby="loadingTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Realtime Meal Consumption</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-auto">
+        <h4 class="text-info text-center" id="status-text"></h4>
+      </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 @endsection
 
 @section('scripts')
@@ -119,15 +137,30 @@
 <script>
   $('#submitBtn').click(function(e){
     e.preventDefault();
-    console.log($('#startDate').val());
+    $.ajaxSetup({
+      headers:{'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')}
+    });
+    $.ajax({
+      url:'/checkMeals',
+      dataType:'json',
+      type:'post',
+      data:{'startDate':$('#startDate').val(),'endDate':$('#endDate').val(),'canteen':$('#canteen').val()},
+      success:function(data){
+          $("#status-img").attr("src","");
+          if($('#canteen').val()){
+            $('#status-text').text("There are currently "+data.count+" students enjoying meal at "+$('#canteen').val()+" canteen.");
+          }else{
+            $('#status-text').text("There are currently "+data.count+" students enjoying meal at all RC");
+          }
+          $('#showMeals').modal('show');
+    }
+  });
   });
   $(function(){
     $('#startDate').combodate();
     $('#endDate').combodate();
     $('.nav-item').removeClass('active');
     $('.nav-meal').addClass('active');
-    console.log($(window).height());
-    console.log($(document).height());
     if($(window).height()>=768){
       $('.occupy').height($(window).height()-$('nav').outerHeight());
       $(window).on('resize', function(){

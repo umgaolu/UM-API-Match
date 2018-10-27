@@ -83,7 +83,6 @@
     $.ajaxSetup({
       headers:{'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')}
     });
-    console.table({'startDate':$('#startDate').val(),'endDate':$('#endDate').val(),'sp':$("input[name='sp[]']:checked").val()});
     $('#loading').modal('show');
     e.preventDefault();
     var languages=[];
@@ -98,11 +97,9 @@
       success:function(data){
         if(data.status=='success'){
           $("#status-img").attr("src","");
-          $('#status-text').text("Success!!!").fadeOut("slow",function(){
+          $('#status-text').text("Success!!!")
             $('.form-event').submit();
             $('#loading').modal('hide');
-          });
-          console.log(data);
         }
       },
       error:function(data){console.log('Error from line:',data);}
@@ -113,8 +110,6 @@
     $('#endDate').combodate();
     $('.nav-item').removeClass('active');
     $('.nav-event').addClass('active');
-    console.log($(window).height());
-    console.log($(document).height());
     $('.occupy').fadeIn(1000);
     $('.occupy').height($(window).height()-$('nav').outerHeight()*2);
     $(window).on('resize', function(){

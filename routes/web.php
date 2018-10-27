@@ -27,4 +27,5 @@ Route::get('/event','UMEventController@index');
 // Route::post('/showEvents','ChartController@loadFiltered');
 Route::post('/checkEvents','ApiController@checkEvents');
 Route::post('/viewEvents','ApiController@viewEvents');
+Route::post('/checkMeals','MealInputController@checkMeals');
 // Route::get('/viewEvents','ApiController@viewEvents');

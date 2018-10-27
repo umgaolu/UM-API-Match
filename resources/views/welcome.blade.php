@@ -7,7 +7,7 @@
   <meta name="author" content="">
   <meta name="csrf-token" content="{{csrf_token()}}">
 
-  <title>UM Hackathon</title>
+  <title>I &#x2764; UM</title>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <link href="/css/welcome.css" rel="stylesheet">
@@ -17,8 +17,8 @@
   <!-- Main jumbotron for a primary marketing message or call to action -->
   <div class="jumbotron">
     <div class="container">
-      <h1 class="display-3">Hello, world!</h1>
-      <p>Find your interest</p>
+      <h1 class="display-3">I &#x2764; UM</h1>
+      <p>For UM Hackathon</p>
     </div>
   </div>
   <div class="container fade-in" style="display:none;">
@@ -34,7 +34,7 @@
           <img class="card-img-top" src="/FrontPage/Event.png" alt="">
           <div class="card-body">
             <h5 class="card-title">What interesting events are on the way?</h5>
-            <a href="/event" class="btn btn-lg btn-outline-success">Go Ckeck</a>
+            <a href="/event" class="btn btn-lg btn-outline-success">Go Check</a>
           </div>
       </div>
         <div class="card border-info mb-3 shadow-sm">
@@ -59,7 +59,7 @@
 </main>
 
 <footer class="container">
-  <p>UM Hackathon 26-27/10/2018</p>
+  <p>by EXPEDITION 26-27/10/2018</p>
 </footer>
 
 <script src="/js/echarts.min.js"></script>

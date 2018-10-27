@@ -2,13 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\RC;
 use App\Dummy;
 use Illuminate\Http\Request;
 use Carbon\CarbonPeriod;
 class ChartController extends Controller
 {
-  private $rcs=['MLC','CKLC','CKYC','FPJC','MCMC','SPC','CYTC','SEAC','LCWC'];
-  private $canteens=['MLC','CKLC','CKYC','FPJC','MCMC','SPC','CYTC','SEAC','LCWC'];
+  private $rcs=[];
+  private $canteens=[];
+  function __construct() {
+    $temp=RC::all()->toArray();
+    $this->rcs=array_column($temp,'name');
+    sort($this->rcs);
+    $this->canteens=array_column($temp,'name');
+    sort($this->canteens);
+  }
   private $mealType=["BREAKFAST","LUNCH","DINNER"];
   private $startDate='2018-10-08';
   private $endDate='2018-10-20';
