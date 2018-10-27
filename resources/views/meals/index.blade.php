@@ -61,7 +61,8 @@
   <div class="row align-items-center justify-content-center"><div class="col-10 col-md-6 mb-1"><hr></div></div>
   <div class="row align-items-center justify-content-center">
     <div class="col-sm-8 align-self-center text-center mb-3 py-1">
-      <button class="btn btn-success btn-lg go-btn"><span data-feather="check"></span>&nbsp;&nbsp;Check other time&nbsp;&nbsp;</button>
+      <button class="btn btn-success btn-lg go-btn"><span data-feather="check"></span>&nbsp;&nbsp;Check other time&nbsp;&nbsp;</button>&nbsp;&nbsp;
+      <a href="/showCharts" class="btn btn-outline-info btn-lg" role="button"><span data-feather="thumbs-up"></span>&nbsp;&nbsp;Spoiler&nbsp;&nbsp;</a>
     </div>
   </div>
 </div></div>
