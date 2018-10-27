@@ -21,3 +21,5 @@ Route::post('/charts','ChartController@loadFiltered');
 Route::get('/show','ChartController@load');
 Route::get('/meal','MealInputController@index');
 Route::get('/event','UMEventController@index');
+// Route::post('/showEvents','ChartController@loadFiltered');
+Route::post('/checkEvents','ApiController@index');

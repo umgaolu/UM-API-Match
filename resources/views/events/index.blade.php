@@ -1,5 +1,15 @@
 @extends('layouts.master')
 @section('content')
+<div class="modal fade" id="loading" tabindex="-1" role="dialog" aria-labelledby="loadingTitle" aria-hidden="true" data-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-body mx-auto">
+        <img src="/loading.gif" alt="">
+        <h4 class="text-info text-center" style="padding-top:1rem;padding-bottom:1rem">Loading...</h4>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="container-fluid" role="main" style="font-size: 16px;">
 <div class="row occupy align-items-center justify-content-center" style="display: none;">
 <div class="col-md-5 col-xs-10 align-self-center">
@@ -10,18 +20,18 @@
   @csrf
 
   <div class="form-group row">
-    <label for="canteen" class="col-sm-3 col-form-label">Languages</label>
+    <label class="col-sm-3 col-form-label">Languages</label>
     <div class="col-sm-9">
       <div class="form-check form-check-inline">
-      <input class="form-check-input" type="checkbox" id="Cantonese" value="Cantonese">
+      <input class="form-check-input" type="checkbox" id="Cantonese" name="languages[]" value="Cantonese">
       <label class="form-check-label" for="Cantonese">Cantonese</label>
       </div>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" id="Mandarin" value="Mandarin">
+        <input class="form-check-input" type="checkbox" id="Mandarin" name="languages[]" value="Mandarin">
         <label class="form-check-label" for="Mandarin">Mandarin</label>
       </div>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" id="English" value="English">
+        <input class="form-check-input" type="checkbox" id="English" name="languages[]" value="English">
         <label class="form-check-label" for="English">English</label>
       </div>
       </div>
@@ -29,19 +39,26 @@
   <div class="form-group row">
     <label for="startDate" class="col-sm-3 col-form-label">Date From</label>
     <div class="col-sm-9">
-      <input class="form-control" type="text" id="startDate" data-format="YYYY-MM-DD" data-template="YYYY / MM / DD" name="startDate" value="{{date('Y-m-d')}}">
+      <input class="form-control" type="text" id="startDate" data-format="YYYY-MM-DD" data-template="YYYY / MM / DD" name="startDate" value="{{date('Y-m-d')}}" required>
     </div>
   </div>
   <div class="form-group row">
     <label for="endDate" class="col-sm-3 col-form-label">Date To</label>
     <div class="col-sm-9">
-      <input class="form-control" type="text" id="endDate" data-format="YYYY-MM-DD" data-template="YYYY / MM / DD" name="endDate" value="{{date('Y-m-d',time()+86400*7)}}">
+      <input class="form-control" type="text" id="endDate" data-format="YYYY-MM-DD" data-template="YYYY / MM / DD" name="endDate" value="{{date('Y-m-d',time()+86400*7)}}" required>
     </div>
   </div>
   <div class="form-group row">
-    <label for="sp" class="col-sm-3 col-form-label">Smart Points</label>
-    <div class="col-sm-4">
-      <input class="form-control" type="text" id="sp" name="sp">
+    <label class="col-sm-3 col-form-label">Smart Points</label>
+    <div class="col-sm-9">
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="sp[]" id="hasSp" value="true">
+        <label class="form-check-label" for="hasSp">Yes</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="sp[]" id="noSp" value="false">
+        <label class="form-check-label" for="noSp">No</label>
+      </div>
     </div>
   </div>
   <div class="form-group row align-items-center justify-content-center">
@@ -63,8 +80,28 @@
 <script src="/js/combodate.js"></script>
 <script>
   $('#submitBtn').click(function(e){
+    $.ajaxSetup({
+      headers:{'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')}
+    });
+    console.table({'startDate':$('#startDate').val(),'endDate':$('#endDate').val(),'sp':$("input[name='sp[]']:checked").val()});
+    $('#loading').modal('show');
     e.preventDefault();
-    console.log($('#startDate').val());
+    var languages=[];
+    $.each($("input[name='languages[]']:checked"), function(){
+      languages.push($(this).val());
+    });
+    $.ajax({
+      url:'/checkEvents',
+      dataType:'json',
+      type:'post',
+      data:{'startDate':$('#startDate').val(),'endDate':$('#endDate').val(),'sp':$("input[name='sp[]']:checked").val()},
+      success:function(data){
+        if(data.status=='success'){
+          console.log(data);
+        }
+      },
+      error:function(data){console.log('Error from line:',data);}
+    });
   });
   $(function(){
     $('#startDate').combodate();

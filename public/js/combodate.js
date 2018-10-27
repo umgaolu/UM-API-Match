@@ -474,7 +474,7 @@
         template: 'YYYY / MM / DD   H : mm',
         //initial value, can be `new Date()`
         value: null,
-        minYear: 1970,
+        minYear: 2017,
         maxYear: new Date().getFullYear(),
         yearDescending: true,
         minuteStep: 20,

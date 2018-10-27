@@ -12,7 +12,7 @@ class ApiConnector
   private $headers;
   public function __construct(){
       $this->client=new Client(['base_uri'=>'https://api.data.umac.mo/service/']);
-      $this->headers=['Authorization'=>'Bearer 0e1156d0-1c16-3fad-b171-1066f6782666','Accept'=>'application/json'];
+      $this->headers=['Authorization'=>'Bearer 774b9add-12fc-3a68-90a3-787994b53ef2','Accept'=>'application/json'];
   }
   public function fetchData($uri='')
   {
