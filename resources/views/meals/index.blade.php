@@ -20,7 +20,7 @@
                     <img src="/RCLogo/{{$rc}}.png" alt="" class="card-img-top"></div>
             </div>
             <div class="card-footer">
-              <p id="{{$rc}}-counting" class="text-alert">50</p id="{{$rc}}-counting">
+              <p id="{{$rc}}-counting" class="text-alert">{{$realTime[$rc]}}</p id="{{$rc}}-counting">
             </div>
           </div>
         </div>
@@ -35,7 +35,7 @@
                     <img src="/RCLogo/{{$rc}}.png" alt="" class="card-img-top"></div>
             </div>
             <div class="card-footer">
-              <p id="{{$rc}}-counting" class="text-success">10</p id="{{$rc}}-counting">
+              <p id="{{$rc}}-counting" class="text-success">{{$realTime[$rc]}}</p id="{{$rc}}-counting">
             </div>
           </div>
         </div>
@@ -50,7 +50,7 @@
                     <img src="/RCLogo/{{$rc}}.png" alt="" class="card-img-top"></div>
             </div>
             <div class="card-footer">
-              <p id="{{$rc}}-counting" class="text-success">10</p id="{{$rc}}-counting">
+              <p id="{{$rc}}-counting" class="text-success">{{$realTime[$rc]}}</p id="{{$rc}}-counting">
             </div>
           </div>
         </div>

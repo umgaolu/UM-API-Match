@@ -12,7 +12,18 @@ class MealInputController extends Controller
     $rcs=RC::all()->toArray();
     $rcs=array_column($rcs,'name');
     sort($rcs);
-    return view('meals.index',compact('rcs'));
+    $startDate=date('Y-m-d H:i',round((time()-2400)/2400)*2400);
+    $startDate=preg_replace('/\s+/','T',$startDate);
+    $startDate=$startDate.':00+08:00';
+    $endDate=date('Y-m-d H:i',round((time()-1200)/1200)*1200);
+    $endDate=preg_replace('/\s+/','T',$endDate);
+    $endDate=$endDate.':00+08:00';
+    $realTime=[];
+    foreach($rcs as $canteen){
+      $count=Dummy::where('consumptionLocation',$canteen)->whereBetween('consumeTime',[$startDate,$endDate])->count();
+      $realTime[$canteen]=$count;
+    }
+    return view('meals.index')->with(['rcs'=>$rcs,'realTime'=>$realTime]);
   }
   public function checkMeals(Request $request)
   {
