@@ -20,4 +20,4 @@ Route::view('/', 'welcome');
 Route::post('/charts','ChartController@loadFiltered');
 Route::get('/show','ChartController@load');
 Route::get('/meal','MealInputController@index');
-Route::get('/event','EventController@index');
+Route::get('/event','UMEventController@index');

@@ -67,7 +67,7 @@
 </div></div>
 </div>
 <div class="container py-3" id="filter" style="max-width:750px;min-height:90vh;display:none">
-  <div class="card card-outline-secondary" style="padding:0.5rem;background-color:#FAFAFA">
+  <div class="card border-dark">
     <div class="card-header"><h4 class="text-info text-xs-center" style="padding-top:1rem;padding-bottom:1rem">When and where do you want to check?</h4></div>
     <div class="card-body">
     <form id="chart-filter" autocomplete="off">

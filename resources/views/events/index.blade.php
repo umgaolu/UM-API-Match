@@ -4,7 +4,7 @@
 <div class="row occupy align-items-center justify-content-center" style="display: none;">
 <div class="col-md-5 col-xs-10 align-self-center">
   <div class="card border-dark mb-3" style="width: 100%;">
-  <div class="card-header"><h3>What would you like?</h3></div>
+  <div class="card-header"><h4 class="text-info text-xs-center" style="padding-top:1rem;padding-bottom:1rem">What would you like to know?</h4></div>
   <div class="card-body text-dark">
 <form class="form-event" autocomplete="off">
   @csrf
@@ -45,7 +45,7 @@
     </div>
   </div>
   <div class="form-group row align-items-center justify-content-center">
-    <div class="col-6 align-self-center">
+    <div class="col-8 align-self-center">
       <button class="btn btn-primary" type="submit" id="submitBtn"><span data-feather="check"></span>&nbsp;&nbsp;Go&nbsp;&nbsp;</button>
       <button class="btn btn-danger" type="reset"><span data-feather="rotate-ccw"></span>&nbsp;Reset</button>
     </div>
