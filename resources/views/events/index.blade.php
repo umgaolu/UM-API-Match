@@ -4,8 +4,8 @@
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-body mx-auto">
-        <img src="/loading.gif" alt="">
-        <h4 class="text-info text-center" style="padding-top:1rem;padding-bottom:1rem">Loading...</h4>
+        <img src="/loading.gif" id="status-img" alt="">
+        <h4 class="text-info text-center" id="status-text" style="padding-top:1rem;padding-bottom:1rem">Loading...</h4>
       </div>
     </div>
   </div>
@@ -16,7 +16,7 @@
   <div class="card border-dark mb-3" style="width: 100%;">
   <div class="card-header"><h4 class="text-info text-xs-center" style="padding-top:1rem;padding-bottom:1rem">What would you like to know?</h4></div>
   <div class="card-body text-dark">
-<form class="form-event" autocomplete="off">
+<form class="form-event" autocomplete="off" method="POST" action="/viewEvents">
   @csrf
 
   <div class="form-group row">
@@ -97,6 +97,11 @@
       data:{'startDate':$('#startDate').val(),'endDate':$('#endDate').val(),'sp':$("input[name='sp[]']:checked").val()},
       success:function(data){
         if(data.status=='success'){
+          $("#status-img").attr("src","");
+          $('#status-text').text("Success!!!").fadeOut("slow",function(){
+            $('.form-event').submit();
+            $('#loading').modal('hide');
+          });
           console.log(data);
         }
       },
