@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 use App\RC;
 use App\Dummy;
+use App\ApiConnector;
 use Illuminate\Http\Request;
 
 class MealInputController extends Controller
 {
+  private $mealApi='student/student_meal_consumption/v1.0.0/all?count';
   public function index()
   {
     $rcs=RC::all()->toArray();
@@ -19,9 +21,12 @@ class MealInputController extends Controller
     $endDate=preg_replace('/\s+/','T',$endDate);
     $endDate=$endDate.':00+08:00';
     $realTime=[];
+    $apiConnector=new ApiConnector();
     foreach($rcs as $canteen){
-      $count=Dummy::where('consumptionLocation',$canteen)->whereBetween('consumeTime',[$startDate,$endDate])->count();
-      $realTime[$canteen]=$count;
+      $ops='&consumption_location='.$canteen.'&consume_date_from='.urlencode($startDate).'&consume_date_to='.urlencode($endDate);
+      $data=$apiConnector->fetchData($this->mealApi.$ops);
+      // dd($data);
+      $realTime[$canteen]=$data->_size;
     }
     return view('meals.index')->with(['rcs'=>$rcs,'realTime'=>$realTime]);
   }
@@ -33,11 +38,13 @@ class MealInputController extends Controller
     $startDate=$startDate.':00+08:00';
     $endDate=preg_replace('/\s+/','T',$endDate);
     $endDate=$endDate.':00+08:00';
+    $apiConnector=new ApiConnector();
     if($request->canteen!=null){
-      $count=Dummy::where('consumptionLocation',$request->canteen)->whereBetween('consumeTime',[$startDate,$endDate])->count();
+      $ops='&consumption_location='.$request->canteen.'&consume_date_from='.urlencode($startDate).'&consume_date_to='.urlencode($endDate);
     }else{
-      $count=Dummy::whereBetween('consumeTime',[$startDate,$endDate])->count();
+      $ops='?consume_date_from='.urlencode($startDate).'&consume_date_to='.urlencode($endDate);
     }
-    return response()->json(['count'=>$count]);
+    $data=$apiConnector->fetchData($this->mealApi.$ops);
+    return response()->json(['count'=>$data->_size]);
   }
 }
