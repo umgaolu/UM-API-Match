@@ -4,11 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\ApiConnector;
+use App\RC;
 
 class ApiController extends Controller
 {
     //
-  private $rcList=['MLC','CKLC','CKYC','FPJC','MCMC','SPC','CYTC','SEAC','LCWC'];
+
+  private $rcs=[];
+  private $canteens=[];
+  function __construct() {
+    $temp=RC::all()->toArray();
+    $this->rcs=array_column($temp,'name');
+    sort($this->rcs);
+    $this->canteens=array_column($temp,'name');
+    sort($this->canteens);
+  }
   private $powerConsumption='facilities/power_consumption/v1.0.0/all';
   private $mealConsumption='student/student_meal_consumption/v1.0.0/all';
   private $events='media/events/v1.0.0/all';

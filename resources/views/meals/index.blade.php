@@ -5,10 +5,8 @@
   <div class="row align-items-center justify-content-center">
     <div class="col-12 align-self-center">
       <div class="row align-items-center justify-content-center">
-        <div class="col-8 col-md-6 align-self-center">
-          <div class="py-1 text-justify">
+        <div class="col-4 align-self-center text-center">
             <h4>Student in Canteens</h4>
-          </div>
         </div>
       </div>
       <div class="row">
@@ -115,12 +113,13 @@
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Realtime Meal Consumption</h5>
+        <h5 class="modal-title">Meal Consumption Status</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body mx-auto">
+        <img src="/loading.gif" id="status-img" alt="">
         <h4 class="text-info text-center" id="status-text"></h4>
       </div>
         <div class="modal-footer">
@@ -137,6 +136,7 @@
 <script>
   $('#submitBtn').click(function(e){
     e.preventDefault();
+    $('#showMeals').modal('show');
     $.ajaxSetup({
       headers:{'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')}
     });
@@ -148,11 +148,10 @@
       success:function(data){
           $("#status-img").attr("src","");
           if($('#canteen').val()){
-            $('#status-text').text("There are currently "+data.count+" students enjoying meal at "+$('#canteen').val()+" canteen.");
+            $('#status-text').text(data.count+" students enjoying meal at "+$('#canteen').val()+" canteen at this period.");
           }else{
-            $('#status-text').text("There are currently "+data.count+" students enjoying meal at all RC");
+            $('#status-text').text(data.count+" students enjoying meal at all RC at this period.");
           }
-          $('#showMeals').modal('show');
     }
   });
   });
